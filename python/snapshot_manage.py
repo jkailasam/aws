@@ -54,8 +54,11 @@ print region
 
 
 conn = boto.ec2.connect_to_region(args.region)
+sns = boto.sns.connect_to_region(args.region)
 # vols = conn.get_all_volumes(filters={ 'tag:' + config['tag_name']: config['tag_value'] })
 vols = conn.get_all_volumes(filters={ 'tag:Name': 'tenfootui-final-sda1-v1' })
 
+
+
 for vol in vols:
-    
+    current_snap=vol.create_snapshot(description)
